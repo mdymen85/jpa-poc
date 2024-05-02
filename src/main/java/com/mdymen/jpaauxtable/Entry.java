@@ -1,5 +1,6 @@
 package com.mdymen.jpaauxtable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,8 +13,11 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String name;
+    public String correlation;
 
-    @OneToOne(mappedBy = "compensatedBy")
+    @OneToOne(mappedBy = "compensatedBy", cascade = CascadeType.PERSIST)
     private Compensation compensation;
+
+    @Transient
+    private String correlationCompensatedBy;
 }
