@@ -9,5 +9,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop  # This line creates and drops tables on app run
+      dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
 
+#jakarta:
+#  persistence:
+#    jdbc:
+#      url: jdbc:mysql://localhost:3306/jpa_test
+#      user: root
+#      password: mdymen_pass
+#
+#hibernate:
+#  dialect: org.hibernate.dialect.MySQLDialect
