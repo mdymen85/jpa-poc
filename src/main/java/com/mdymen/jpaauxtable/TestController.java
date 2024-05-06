@@ -31,10 +31,8 @@ public class TestController {
         return new ResponseEntity<Iterable<Entry>>(entries, HttpStatus.OK);
     }
 
-    private final CompensationRepository compensationRepository;
-
     @RequestMapping(path = "/v1/entry/compensation", method = RequestMethod.POST)
-    public ResponseEntity<Compensation> compensation(@RequestBody Entry entry) {
+    public ResponseEntity<Entry> compensation(@RequestBody Entry entry) {
         var entryToCompensateOpt = this.entryRepository.findByCorrelation(entry.getCorrelationCompensatedBy());
 
         if (entryToCompensateOpt.isEmpty()) {
@@ -42,28 +40,11 @@ public class TestController {
         }
 
         var entryToCompensate = entryToCompensateOpt.get();
+        entry.setCompensatedEntry(entryToCompensate);
 
+        var entryCompansated = this.entryRepository.save(entry);
 
-//        this.entryRepository.save(entry);
-
-//        entryToCompensate = this.entryRepository.save(compensation);
-//        entryToCompensate.setCompensation(compensation);
-
-        Compensation compensation = new Compensation();
-        compensation.setCompensatedEntry(entryToCompensate);
-//        compensation.setCompensatingEntry(entryToCompensate);
-//
-//        compensation = this.compensationRepository.save(compensation);
-
-        entry.setCompensation(compensation);
-
-//        var response = this.entryRepository.save(compensation);
-
-//        entryToCompensate.setCompensation(compensation);
-//
-        this.entryRepository.save(entry);
-
-        return new ResponseEntity<Compensation>(compensation, HttpStatus.OK);
+        return new ResponseEntity<Entry>(entryCompansated, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/v1/employee", method = RequestMethod.POST)

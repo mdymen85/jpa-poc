@@ -1,7 +1,5 @@
 package com.mdymen.jpaauxtable.meal;
 
-import com.mdymen.jpaauxtable.entry.Compensation;
-import com.mdymen.jpaauxtable.entry.Entry;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -12,11 +12,10 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Data
 @SuperBuilder(toBuilder = true)
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "entry")
 @AllArgsConstructor
 @NoArgsConstructor
+@SecondaryTable(name = "compensation", pkJoinColumns = @PrimaryKeyJoinColumn(name = "compensated_by_id"))
 public class Entry  {
 
     @Id
@@ -25,8 +24,9 @@ public class Entry  {
 
     private String correlation;
 
-    @OneToOne(mappedBy = "compensatedEntry", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    private Compensation compensation;
+    @OneToOne(fetch = FetchType.LAZY, targetEntity = Entry.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "compensated_entry_id", table = "compensation")
+    private Entry compensatedEntry;
 
     @Transient
     private String correlationCompensatedBy;
