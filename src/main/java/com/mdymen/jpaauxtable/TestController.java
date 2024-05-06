@@ -24,7 +24,7 @@ public class TestController {
     }
 
     @RequestMapping(path = "/v1/entry", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Entry>> get(@RequestBody Entry entry) {
+    public ResponseEntity<Iterable<Entry>> get() {
         var entries = this.entryRepository.findAll();
         return new ResponseEntity<Iterable<Entry>>(entries, HttpStatus.OK);
     }
@@ -41,7 +41,6 @@ public class TestController {
 
         Compensation compensation = Compensation
                 .builder()
-                .compensatedBy(entry)
                 .compensatedEntry(entryToCompensate)
                 .build();
 

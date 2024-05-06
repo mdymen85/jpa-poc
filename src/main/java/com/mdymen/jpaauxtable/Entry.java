@@ -15,7 +15,7 @@ public class Entry {
 
     public String correlation;
 
-    @OneToOne(mappedBy = "compensatedBy", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "compensatedEntry", cascade = CascadeType.PERSIST)
     private Compensation compensation;
 
     @Transient
